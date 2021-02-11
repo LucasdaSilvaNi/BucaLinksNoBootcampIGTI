@@ -36,6 +36,7 @@ namespace BuscaLinksIGTI
 
                 driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
                 fazerLogin(driver);
+                fecharAnuncioDeProvavelPropaganda(driver);
                 acessarAtividadeComOsLinks(driver);
 
                 if (!Directory.Exists("C://Links do IGTI")) {
@@ -65,6 +66,15 @@ namespace BuscaLinksIGTI
             var botaoEntrar = driver.FindElement(By.CssSelector(".Button--login"));
             botaoEntrar.Click();
         }
+
+        static void fecharAnuncioDeProvavelPropaganda(ChromeDriver driver)
+        {
+            var anuncio = driver.FindElement(By.Id("globalModalContainer"));
+            if (anuncio != null) {
+                var botaoFechar = anuncio.FindElement(By.Id("closebtn"));
+                botaoFechar.Click();
+            }
+        }        
 
         static void acessarAtividadeComOsLinks(ChromeDriver driver) {
             var curso = driver.FindElement(By.CssSelector("h3[title='"+nomeDoCursoNoPainel+"']"));
